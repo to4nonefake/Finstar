@@ -1,0 +1,27 @@
+//2.1 SOLUTION
+
+SELECT Clients.ClientName, COUNT(ClientContacts.ClientId) AS ContactsCount        
+FROM Clients
+LEFT JOIN ClientContacts
+ON (Clients.Id = ClientContacts.ClientId)
+GROUP BY Clients.id
+
+
+
+//2.2 SOLUTION
+
+SELECT ClientName FROM (SELECT Clients.ClientName, COUNT(ClientContacts.ClientId) AS ContactsCount
+FROM Clients
+LEFT JOIN ClientContacts
+ON (Clients.Id = ClientContacts.ClientId)
+GROUP BY Clients.id) WHERE ContactsCount > 2
+
+
+
+//3(Optional) SOLUTION
+
+SELECT Dates.Id, Dates.Dt AS Sd, Dates2.Dt AS Ed 
+FROM Dates
+INNER JOIN Dates AS Dates2
+ON (Dates.Id == Dates2.Id AND Dates.Dt < Dates2.Dt)
+GROUP BY Sd
